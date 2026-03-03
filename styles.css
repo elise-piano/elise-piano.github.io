@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* Custom properties */
+:root {
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    --font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+}
+
+/* Base styles and resets */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-sans);
+    line-height: 1.7;
+    color: #000; /* Black text */
+    background-color: #fff; /* White background */
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.title {
+    text-align: center;
+    font-size: 2em;
+    font-weight: 800; /* Matching user's provided CSS snippet */
+    margin-bottom: 5px;
+}
+
+.authors {
+    text-align: center;
+    font-size: 1.05rem; /* Matching user's provided CSS snippet */
+    margin-bottom: 5px;
+    color: #000; /* Black text */
+}
+
+.date {
+    text-align: center;
+    font-size: 0.9em;
+    margin-bottom: 40px;
+}
+
+.section-title {
+    font-size: 1.5em;
+    font-weight: 700; /* Matching user's provided CSS snippet */
+    margin-top: 30px;
+    margin-bottom: 15px;
+    color: #000; /* Black text */
+}
+
+.abstract-section {
+    margin-bottom: 30px;
+}
+
+.abstract-text {
+    text-align: justify;
+    margin-bottom: 20px;
+    font-size: 1.05rem; /* Matching user's provided CSS snippet */
+    line-height: 1.75; /* Matching user's provided CSS snippet */
+    color: #000; /* Black text */
+}
+
+.video-placeholder {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.placeholder-box {
+    border: 1px dashed #999;
+    padding: 50px 20px;
+    margin-top: 20px;
+    background-color: #f9f9f9;
+}
+
+.placeholder-box p {
+    margin: 0;
+    color: #555;
+}
+
+.details-section p {
+    text-align: justify;
+    margin-bottom: 1em;
+    font-size: 1.05rem; /* Matching user's provided CSS snippet */
+    line-height: 1.75; /* Matching user's provided CSS snippet */
+    color: #000; /* Black text */
+}
+
+/* BibTeX section styling */
+#bibtex {
+    text-align: left;
+}
+
+#bibtex h2 {
+    text-align: left;
+    margin-left: 0;
+}
+
+section pre {
+    background: #f1f5f9; /* Very light gray for code */
+    padding: 1.5rem;
+    border-radius: 0.375rem; /* radius-md */
+    font-size: 0.92rem;
+    font-family: var(--font-mono);
+    overflow-x: auto;
+    line-height: 1.5;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    text-align: left;
+    color: #000; /* Black text */
+}
+
+code {
+    font-family: var(--font-mono);
+    color: #000; /* Black text */
+}
+
+/* Navbar styles */
+.navbar {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.navbar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px; /* Space between links */
+}
+
+.navbar li a {
+    text-decoration: none;
+    color: #000;
+    font-weight: 500;
+    padding: 5px 10px;
+    transition: all 0.3s ease;
+}
+
+.navbar li a:hover {
+    color: #007bff; /* A subtle hover effect */
+    background-color: #f0f0f0;
+    border-radius: 3px;
+}
+
+/* Figure styles */
+.figure-container {
+    margin: 2em auto;
+    text-align: center;
+    max-width: 100%;
+}
+
+.figure-container img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #eee; /* Light border */
+    display: block; /* Remove extra space below image */
+    margin: 0 auto; /* Center image */
+}
+
+.figure-caption {
+    font-size: 0.8em; /* Made captions smaller */
+    color: #555;
+    margin-top: 0.5em;
+    text-align: center;
+    line-height: 1.5;
+}
+
+/* Image Row styles */
+.image-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Space between images */
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.image-row .figure-container {
+    flex: 1 1 48%; /* flex-grow, flex-shrink, flex-basis for equal sizing */
+    max-width: 48%; /* Each takes up roughly half the space */
+    margin: 0; /* Override default figure-container margin */
+}
+
+/* Ensure images within image-row are responsive */
+.image-row .figure-container img {
+    width: 100%;
+    height: auto;
+}
+
+/* Smaller plot images */
+.figure-container.plot-smaller img {
+    max-width: 70%; /* Make plots smaller */
+    margin: 0 auto;
+}
+
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    body {
+        padding: 10px;
+    }
+    .title {
+        font-size: 1.8em;
+    }
+    .authors, .abstract-text, .details-section p {
+        font-size: 1em;
+    }
+    .section-title {
+        font-size: 1.3em;
+    }
+    .placeholder-box {
+        padding: 30px 15px;
+    }
+}
