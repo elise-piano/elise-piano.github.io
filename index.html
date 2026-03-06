@@ -15,88 +15,208 @@
                 <li><a href="#method">Method</a></li>
                 <li><a href="#experiments">Experiments</a></li>
                 <li><a href="#results">Results</a></li>
+                <li><a href="#videos">Videos</a></li>
                 <li><a href="#case-study">Case Study</a></li>
                 <li><a href="#conclusion">Conclusion</a></li>
                 <li><a href="#bibtex-section">BibTeX</a></li>
             </ul>
         </nav>
         <h1 class="title">Embodied Stylistic Planning via Structured Reasoning and Execution Feedback</h1>
-        <p class="authors">Anonymous Authors</p>
-        <p class="date">March 2, 2026</p>
-
-
+        <p class="authors">Author Names Omitted for Anonymous Review</p>
+        <p class="date">March 5, 2026</p>
 
         <section class="abstract-section" id="abstract">
             <h2 class="section-title">Abstract</h2>
-            <p class="abstract-text">Enabling robots to translate high-level human intent into physically grounded action remains a central challenge in human-robot interaction. Although recent vision-language and large language models can generate structured plans from natural language, they lack embodiment awareness and often produce physically infeasible or perceptually misaligned behavior. This gap is particularly pronounced in expressive tasks, where users specify stylistic qualities (e.g., “play this in jazz style”) that must be realized through temporally precise, constraint-bound motor control. Robotic piano performance exemplifies this challenge, requiring high-frequency dexterous execution under strict hardware limitations. We present ELISE, a structured multi-stage VLM framework for style-conditioned dexterous skill synthesis under embodiment constraints. Rather than collapsing intent interpretation, hardware adaptation, and control generation into a single prompt, ELISE decomposes reasoning into sequential stages spanning musical intent analysis, embodiment-constrained planning, robot-API-level code generation, and iterative refinement using execution-derived feedback. This staged design enables explicit alignment between abstract stylistic intent and physically feasible execution while maintaining transparency across reasoning layers. We evaluate ELISE on a humanoid robot equipped with constrained dexterous hands, performing three songs under original, jazz, and blues styles. In a blind ranking study across 24 real-robot performances, the proposed framework significantly improves both melodic faithfulness and perceptual style alignment compared to direct single-prompt code generation.</p>
-
+            <p class="abstract-text">Translating abstract human intent, especially stylistic nuances like 'play in jazz style,' into physically feasible robot actions is a key challenge in human-robot interaction. Current large language models often struggle with embodiment constraints, leading to unrealistic robot behavior. We introduce ELISE, a multi-stage framework for robotic piano performance that breaks down stylistic intent into sequential steps: musical analysis, embodiment-aware planning, code generation, and execution-grounded refinement. This structured approach, evaluated on a humanoid robot performing three songs in various styles, significantly enhances melodic accuracy and stylistic alignment compared to direct, single-prompt code generation.</p>
+        </section>
 
         <section class="details-section">
             <h2 class="section-title" id="method">Method</h2>
-            <p>We present ELISE, a structured multi-stage reasoning frame-work for aligning high-level stylistic intent with physically feasible dexterous robot execution. Rather than using a single prompt to jointly interpret intent, enforce hardware constraints, and generate control code, ELISE decomposes reasoning into sequential stages operating at distinct levels of abstraction. Each stage produces a structured intermediate representation that is explicitly passed to the next, enabling clear separation between perceptual reasoning, embodiment grounding, and low-level execution.</p>
+            <p>ELISE is a multi-stage framework designed to bridge high-level stylistic intent with physically executable robot actions. Instead of a single, complex prompt, ELISE uses a sequential reasoning process, where each stage refines an intermediate representation, separating perceptual understanding from physical embodiment and low-level execution. The framework consists of four main layers:
+            <ul>
+                <li><strong>Layer 1: Musical Intent Analysis.</strong> Interprets natural language style requests (e.g., 'jazz style') into a structured, robot-agnostic musical representation, including notes, rhythm, and stylistic transformations.</li>
+                <li><strong>Layer 2: Embodiment-Constrained Planning.</strong> Translates the musical intent into a feasible execution plan, considering robot limitations like finger reach and wrist movement. This layer resolves conflicts between stylistic demands and physical constraints.</li>
+                <li><strong>Layer 3: Code Generation.</strong> Converts the refined plan into executable Python code for robot control, incorporating rules to ensure smooth and physically sound movements.</li>
+                <li><strong>Layer 4: Execution-Grounded Refinement.</strong> After performance, MIDI transcripts provide feedback on deviations (e.g., missed notes, timing errors). This feedback is used to iteratively refine the planning and code generation, grounding the stylistic intent in real hardware behavior.</li>
+            </ul>
+            ELISE was developed to be model-agnostic, with Gemini 3.0 Pro demonstrating more consistent adherence to hardware limitations compared to GPT-5.2.</p>
             <div class="figure-container">
                 <img src="img/architecture.png" alt="ELISE Architecture Overview">
-                <p class="figure-caption">Figure 1: Overview of the ELISE framework architecture.</p>
+                <p class="figure-caption">Figure 1: Overview of ELISE. The core components of ELISE are a layered reasoning pipleine (layer 1-3) for decomposing task goal, style goal, and embodiment constraints; and and a feedback-driven adaptation module (layer 4) for further grounding a refinement.</p>
             </div>
-            <h3>ELISE Framework Layers:</h3>
-            <ul>
-                <li><strong>Layer 1: Musical Intent Analysis.</strong> This stage interprets the instruction at a robot-agnostic level, generating a structured intent representation that specifies the complete note and chord progression, rhythmic structure and tempo, and stylistic transformations implied by the user's input.</li>
-                <li><strong>Layer 2: Embodiment-Constrained Planning.</strong> This stage grounds the intent representation in the robot's physical profile to produce a feasible execution plan, specifying for each note event: target key, assigned finger, wrist position, onset time, and duration.</li>
-                <li><strong>Layer 3: Code Generation.</strong> The feasible execution plan is translated into executable Python code using a robot control API, enforcing sequencing rules to avoid actuation saturation and ensuring physically sound motions.</li>
-                <li><strong>Layer 4: Execution-Grounded Refinement.</strong> After execution, the robot's performance is transcribed into MIDI and compared against the planned sequence. Deviations such as missed notes, timing drift, or velocity inconsistencies are detected, and this outcome-based feedback is used to refine stylistic planning in real hardware behavior.</li>
-            </ul>
+        </section>
 
+        <section class="details-section">
             <h2 class="section-title" id="experiments">Experiments</h2>
-            <p>Experiments were conducted on a RealMan humanoid platform equipped with 6-DOF arms and OYMotion ROHand dexterous hands. All performances were executed using a single hand positioned at a fixed height relative to the piano keyboard. Execution outcomes were recorded via direct MIDI output from the digital piano, which served as the structured feedback signal for iterative refinement. The study encompassed hard constraints (thumb excluded, white keys only) and soft constraints (e.g., repositioning latency, actuation bandwidth). Three songs were evaluated under three style conditions (original, jazz, and blues), comparing Baseline, Reasoning Only, and ELISE (Full).</p>
-            <h3>User Study:</h3>
-            <p>To evaluate perceptual style alignment, a blind ranking study was conducted with 22 participants (6 female, 16 male; age 18-40). Participants completed a web-based survey, ranking robot performance videos based on how faithfully they reflected the intended style. Rankings were converted to numerical scores, and statistical significance was assessed using paired Wilcoxon signed-rank tests. Two hypotheses were evaluated: (H1) structured reasoning improves perceived style alignment relative to single-prompt generation, and (H2) execution-grounded feedback further improves alignment by resolving embodiment-induced errors.</p>
+            <p>Experiments were conducted on a RealMan humanoid robot with OYMotion ROHand dexterous hands, playing a digital piano with a single hand. Both hard (e.g., white keys only, four fingers) and soft constraints (e.g., wrist repositioning latency) were imposed. ELISE, instantiated with Gemini 3.0 Pro, was evaluated on three songs ('Happy Birthday', 'Twinkle Twinkle Little Star', 'He’s a Pirate') in three styles (Original, Jazz, Blues). We compared three methods: 'Baseline' (direct code generation), 'Reasoning Only' (ELISE without execution feedback), and 'ELISE (Full)' (complete ELISE pipeline). A blind ranking user study with 22 participants assessed perceived style alignment, testing if structured reasoning and execution feedback improved performance.</p>
 
             <h2 class="section-title" id="results">Results</h2>
             <div class="figure-container">
                 <img src="img/user_study.png" alt="User Study Results of Perceived Alignment of Styles">
-                <p class="figure-caption">Figure 2: User study results of perceived alignment of styles. Average ranking scores (with standard error) of different method for each style across the three tested songs are plotted.</p>
+                <p class="figure-caption">Figure 4: User study results of perceived alignment of styles. Average ranking scores (with standard error) of different method for each style across the three tested songs are plotted.</p>
             </div>
-            <p>Across most song-style combinations, structured methods (Reasoning and Full ELISE) outperformed the Baseline in perceptual rankings. The largest performance gaps occurred between Baseline and structured methods, indicating that staged reasoning substantially improves style coherence. Improvements were style-dependent and not uniform across all songs. For Original Style, Reasoning outperformed Baseline. Blues Style showed clear separation, with Reasoning and Full ELISE outperforming Baseline. Jazz Style exhibited variability, with Full ELISE achieving the highest ranking in two of three jazz conditions. Structured reasoning improves style alignment, particularly for rhythmically defined styles, with partial support for execution-grounded feedback.</p>
+            <p>Overall, structured methods (Reasoning and Full ELISE) significantly outperformed the Baseline in perceptual rankings across most song-style combinations, showing that staged reasoning greatly enhances style coherence (Fig. 4). A notable observation was that many baseline videos failed to complete the song due to code execution issues, highlighting ELISE's better understanding of robot physical limitations.
+            <ul>
+                <li><strong>Original Style:</strong> Structured reasoning notably improved melodic fidelity for complex pieces like 'He’s a Pirate' and 'Twinkle Twinkle Little Star', but showed less difference for simpler songs.</li>
+                <li><strong>Blues Style:</strong> ELISE methods clearly surpassed Baseline, consistently producing smoother, more melancholic, and rhythmically consistent performances, aligning with the style's characteristics.</li>
+                <li><strong>Jazz Style:</strong> Results varied, with Full ELISE performing best in two out of three jazz conditions. This demonstrated that execution feedback is crucial for restoring fluidity under hardware limits in this complex style, as users sometimes interpreted baseline mistakes as intentional jazz elements.</li>
+            </ul>
+            These findings support that structured reasoning improves style alignment, with execution feedback providing further gains, especially for styles heavily impacted by embodiment constraints.</p>
 
-            <div class="figure-container plot-smaller">
-                <img src="img/bday_plots.png" alt="Happy Birthday Plots">
-                <p class="figure-caption">Figure 4: Comparison plots for Happy Birthday across different styles and methods.</p>
-            </div>
-            <div class="figure-container plot-smaller">
-                <img src="img/pirates_plots.png" alt="He's a Pirate Plots">
-                <p class="figure-caption">Figure 5: Comparison plots for He's a Pirate across different styles and methods.</p>
-            </div>
-            <div class="figure-container plot-smaller">
-                <img src="img/twinkle_plots.png" alt="Twinkle Twinkle Little Star Plots">
-                <p class="figure-caption">Figure 6: Comparison plots for Twinkle Twinkle Little Star across different styles and methods.</p>
-            </div>
+<section class="details-section" id="videos">
+    <h2 class="section-title">Video Demonstrations</h2>
 
-            <h3>Original Style</h3>
-            <p>The original condition isolates melodic coherence without additional stylistic modification. For He's a Pirate, over 90% of participants ranked the Reasoning variant above Baseline (p < 0.001), and Twinkle Twinkle Little Star exhibited a similarly strong preference. One participant noted that "The rhythm from [Reasoning] was more accurate and sounds more like the song," highlighting perceived improvements in timing and melodic fidelity. In contrast, Happy Birthday showed no statistically significant difference between methods, with participants frequently reporting that the two renditions sounded similar. These findings suggest that structured reasoning provides the greatest benefit for melodically or rhythmically demanding pieces, where single-prompt generation may struggle to maintain accurate sequencing and temporal consistency. For simpler songs with repetitive structure, the baseline often produces sufficiently coherent outputs, reducing perceptual differences between methods.</p>
-            
-            <h3>Blues Style</h3>
-            <p>Blues produced the clearest separation between methods. Both Reasoning and Full ELISE consistently outperformed Baseline across all songs, with most comparisons reaching significance. Our data and users' reasoning followed this idea, where they stated the structured methods were "smoother and more melancholic" that shows the traits of a Blues version. Blues is stylistically well-defined: slower tempo, shuffle rhythm, and sustained phrasing. These features map cleanly onto explicit timing and duration adjustments that the staged pipeline can model while respecting hardware timing limits. MIDI analysis confirmed that structured methods produced longer note durations and more consistent rhythmic grouping compared to Baseline. Interestingly, Reasoning and Full ELISE did not differ significantly, indicating that once embodiment constraints are properly integrated during planning, additional feedback provides limited gains for this style.</p>
+    <h3>Happy Performances</h3>
+        <div class="video-table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Method</th>
+                    <th>Jazz</th>
+                    <th>Blues</th>
+                    <th>Original</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Base</td>
+                    <td><a href="https://youtu.be/5O4NTaWakcc" target="_blank">Video 19</a></td>
+                    <td><a href="https://youtu.be/JDLX1tzJ1wg" target="_blank">Video 22</a></td>
+                    <td><a href="https://youtu.be/3xkBNSkBwVc" target="_blank">Video 24</a></td>
+                </tr>
+                <tr><td>Reasoning</td>
+                    <td><a href="https://youtu.be/wYcnnru2lwo" target="_blank">Video 11</a></td>
+                    <td><a href="https://youtu.be/QvoFfj4jG9o" target="_blank">Video 15</a></td>
+                    <td><a href="https://youtu.be/3rmeKmO3j2k" target="_blank">Video 18</a></td>
+                </tr>
+                <tr><td>Feedback</td>
+                    <td><a href="https://youtu.be/przbYI3tV-0" target="_blank">Video 9</a></td>
+                    <td><a href="https://youtu.be/-ddfte9JO9A" target="_blank">Video 12</a></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        <h3>Twinkle Performances</h3>
+        <div class="video-table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Method</th>
+                    <th>Jazz</th>
+                    <th>Blues</th>
+                    <th>Original</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Base</td>
+                    <td><a href="https://youtu.be/xbaxel2bVFA" target="_blank">Video 16</a></td>
+                    <td><a href="https://youtu.be/sqgK8R7YWZg" target="_blank">Video 20</a></td>
+                    <td><a href="https://youtu.be/f900dH_6z7M" target="_blank">Video 23</a></td>
+                </tr>
+                <tr><td>Reasoning</td>
+                    <td><a href="https://youtu.be/AUBu2tAU7uM" target="_blank">Video 6</a></td>
+                    <td><a href="https://youtu.be/4tG64RHpsPw" target="_blank">Video 10</a></td>
+                    <td><a href="https://youtu.be/bIqAgOYh4nc" target="_blank">Video 13</a></td>
+                </tr>
+                <tr><td>Feedback</td>
+                    <td><a href="https://youtu.be/rmT3e1z1xCE" target="_blank">Video 4</a></td>
+                    <td><a href="https://youtu.be/cMzEGSa0sXk" target="_blank">Video 7</a></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        <h3>Pirates Performances</h3>
+        <div class="video-table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Method</th>
+                    <th>Jazz</th>
+                    <th>Blues</th>
+                    <th>Original</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Base</td>
+                    <td><a href="https://youtu.be/gxo3J66OWfs" target="_blank">Video 14</a></td>
+                    <td><a href="https://youtu.be/QIKAVwHxaZ4" target="_blank">Video 17</a></td>
+                    <td><a href="https://youtu.be/N58-SKmSmTg" target="_blank">Video 21</a></td>
+                </tr>
+                <tr><td>Reasoning</td>
+                    <td><a href="https://youtu.be/AApkGnS94O8" target="_blank">Video 2</a></td>
+                    <td><a href="https://youtu.be/K2VB-3GrAvY" target="_blank">Video 5</a></td>
+                    <td><a href="https://youtu.be/H7_jr9-csh0" target="_blank">Video 8</a></td>
+                </tr>
+                <tr><td>Feedback</td>
+                    <td><a href="https://youtu.be/RvmZfXXq6Ps" target="_blank">Video 1</a></td>
+                    <td><a href="https://youtu.be/r8ozfw21sH0" target="_blank">Video 3</a></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        <h3>Für Elise Performances</h3>
+<div class="video-table-container">
+<table>
+    <thead>
+        <tr>
+            <th>Model / Method</th>
+            <th>Blues</th>
+            <th>Original</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>ELISE (Base)</td>
+            <td><a href="https://youtu.be/nLrNib4Ea_w" target="_blank">Video 30</a></td>
+            <td><a href="https://youtu.be/FAwK_MNelfE" target="_blank">Video 27</a></td>
+        </tr>
+        <tr><td>ELISE (Reasoning)</td>
+            <td><a href="https://youtu.be/BjCBfksrPK0" target="_blank">Video 26</a></td>
+            <td><a href="https://youtu.be/QVy2iwLelJg" target="_blank">Video 29</a></td>
+        </tr>
+        <tr><td>ELISE (Feedback)</td>
+            <td><a href="https://youtu.be/xnjxjnTBwYc" target="_blank">Video 28</a></td>
+            <td><a href="https://youtu.be/NAF2h5nnsUA" target="_blank">Video 25</a></td>
+        </tr>
+        <tr><td>GPT (Base)</td>
+            <td><a href="https://youtu.be/JfJxTk6vkHg" target="_blank">Video 31</a></td>
+            <td><a href="https://youtu.be/vb5Dog567l8" target="_blank">Video 34</a></td>
+        </tr>
+        <tr><td>GPT (Reasoning)</td>
+            <td><a href="https://youtu.be/oM7VVo6utnU" target="_blank">Video 35</a></td>
+            <td><a href="https://youtu.be/sov34oSsYos" target="_blank">Video 32</a></td>
+        </tr>
+        <tr><td>GPT (Feedback)</td>
+            <td><a href="https://youtu.be/Wu2tJmfHOKA" target="_blank">Video 33</a></td>
+            <td><a href="https://youtu.be/JmL5TP7PNS4" target="_blank">Video 36</a></td>
+        </tr>
+    </tbody>
+</table>
+</div>
 
-            <h3>Jazz Style</h3>
-            <p>Jazz exhibited the greatest variability across songs. For Twinkle Twinkle Little Star, Full ELISE was clearly preferred over both alternatives. For He's a Pirate, the Reasoning-only variant performed worst below Baseline—while Full ELISE recovered to the top ranking. This suggests that reasoning without feedback may over-constrain phrasing, whereas execution feedback helps restore timing fluidity under hardware limits. For Happy Birthday, Baseline achieved the highest mean score, though no difference was statistically significant. Jazz is inherently less constrained than blues: swing timing, syncopation, and harmonic substitution admit multiple valid interpretations. Users quoted that "[Baseline] vs [Reasoning/Elise] were very similar" and they couldn't tell the difference. In such settings, the irregularity of unconstrained generation may sometimes be perceived as stylistically plausible. Nevertheless, Full ELISE achieved the highest ranking in two of three jazz conditions. The results support H1: structured reasoning improves style alignment relative to single-prompt generation, particularly for rhythmically defined styles. H2 receives partial support: execution feedback yields additional gains in styles where embodiment constraints significantly affect phrasing (e.g., jazz), but provides smaller benefits when style features are easily captured during planning (e.g., blues). Overall, the findings demonstrate that perceptual style alignment in dexterous tasks depends not only on symbolic reasoning but also on iterative grounding in real hardware execution.</p>
-            <div class="figure-container">
-                <img src="img/wilcoxon.png" alt="Wilcoxon Signed-Rank Test P-values for User Study Results">
-                <p class="figure-caption">Figure 3: Wilcoxon signed-rank test P-values for user study results.</p>
-            </div>            <h2 class="section-title" id="case-study">Case Study: Für Elise</h2>
-            <p>To further illustrate the qualitative behavior of ELISE, a case study on Für Elise was presented under both Original and Blues style conditions. The study visualized executed note sequences and timing patterns produced by each method. For the Original Style, ELISE explicitly adapted the melody to embodiment constraints by mapping black keys to the nearest feasible white keys while preserving musical structure. In Blues Style, ELISE variants produced more temporally consistent phrasing and clearer shuffle-like grouping, with the Full ELISE model adjusting onset timing to align notes more coherently with the beat while respecting actuation constraints. Perceptual evaluation showed that both Reasoning-only and Full ELISE variants were consistently preferred over Baseline, with primary perceptual gains arising from structured embodiment-aware planning.</p>
+</section>
+
+            <h2 class="section-title" id="case-study">Case Study: Für Elise</h2>
+            <p>The 'Für Elise' case study showcased ELISE's integration of stylistic intent and embodiment constraints across Original and Blues styles. For the Original version, ELISE successfully adapted the melody to white-key-only constraints by intelligently substituting black keys, maintaining musical structure. In Blues style, ELISE generated more consistent shuffle-like rhythms than the baseline, which exhibited irregular timing. Both 'Reasoning-only' and 'Full ELISE' variants were perceptually preferred over the baseline by participants (Fig. 3), indicating that embodiment-aware planning is key to improvements. MIDI visualizations (Fig. 2) and user rankings further reflected Gemini 3.0's superior adherence to constraints and clearer stylistic differentiation compared to GPT-5.2.</p>
             <div class="image-row">
                 <div class="figure-container">
                     <img src="img/furelise_plots.png" alt="Für Elise Note Comparison Chart">
-                    <p class="figure-caption">Figure 7: Note comparison chart of Für Elise in Original (top) and Blues (bottom) styles.</p>
+                    <p class="figure-caption">Figure 2: Case Study. Note comparison chart of Für Elise in Original (top) and Blues (bottom) styles.</p>
                 </div>
                 <div class="figure-container">
                     <img src="img/fur_elise_user_study.png" alt="Für Elise User Study Results">
-                    <p class="figure-caption">Figure 8: User study results of Für Elise.</p>
+                    <p class="figure-caption">Figure 3: User study results of Für Elise.</p>
                 </div>
+            </div>
+
+            <div class="figure-container plot-smaller">
+                <img src="img/furelise_gpt_gemini.png" alt="Für Elise GPT vs Gemini Comparison">
+                <p class="figure-caption">Figure 5: Comparison of GPT and Gemini 3.0 Pro performance for Für Elise.</p>
             </div>
             
             <h2 class="section-title" id="conclusion">Conclusion</h2>
-            <p>We presented ELISE, a multi-stage language-conditioned framework that enables stylistic robotic piano performance without task-specific training data. By decomposing reasoning into musical intent analysis, embodiment-aware planning, executable code generation, and execution-grounded refinement, ELISE demonstrates that structured reasoning substantially improves perceptual style alignment over single-prompt generation. Incorporating MIDI-based feedback further reduces discrepancies between planned and executed performance by grounding corrections in observed note timing and duration. These results suggest that staged prompt reasoning, combined with explicit embodiment modeling, provides a practical alternative to data-intensive policy learning for expressive dexterous manipulation. The current system has several limitations, including evaluation primarily on short musical excerpts and sensitivity to prompt phrasing. Future work includes extending to full-length pieces, improving prompt robustness, and enabling coordinated two-hand performance, as well as exploring scaling to other high-frequency dexterous tasks.</p>
+            <p>ELISE is a multi-stage, language-conditioned framework that significantly improves stylistic robotic piano performance without requiring task-specific training data. By decoupling musical intent analysis, embodiment-aware planning, code generation, and execution-grounded refinement, ELISE enhances perceptual style alignment and reduces discrepancies between planned and executed performances. While promising, current limitations include reliance on short musical excerpts, sensitivity to prompt phrasing, and single-hand, white-key-only constraints. Future work will focus on extending to longer compositions, improving prompt robustness, and enabling two-hand coordination.</p>
 
             <h2 class="section-title" id="bibtex-section">BibTeX</h2>
             <pre><code>@article{anonymous2026embodied,

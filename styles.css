@@ -140,17 +140,19 @@ code {
     padding: 0;
     margin: 0;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap; /* Prevent wrapping to force one line */
     justify-content: center;
-    gap: 15px; /* Space between links */
+    gap: 10px; /* Reduced gap */
 }
 
 .navbar li a {
     text-decoration: none;
     color: #000;
     font-weight: 500;
-    padding: 5px 10px;
+    font-size: 0.9rem; /* Slightly smaller font */
+    padding: 5px 8px; /* Reduced horizontal padding */
     transition: all 0.3s ease;
+    white-space: nowrap; /* Prevent text wrapping within links */
 }
 
 .navbar li a:hover {
@@ -231,4 +233,46 @@ code {
     .placeholder-box {
         padding: 30px 15px;
     }
+}
+
+/* Table Styles */
+.video-table-container {
+    margin: 2em auto;
+    max-width: 100%;
+    overflow-x: auto; /* Enable horizontal scrolling for smaller screens */
+}
+
+.video-table-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1em;
+    font-size: 0.9em;
+    text-align: left;
+}
+
+.video-table-container th,
+.video-table-container td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.video-table-container th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    text-align: center;
+}
+
+.video-table-container td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.video-table-container td a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: 500;
+}
+
+.video-table-container td a:hover {
+    text-decoration: underline;
 }

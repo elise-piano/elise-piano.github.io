@@ -1,0 +1,36 @@
+19,https://youtu.be/5O4NTaWakcc,Base,jazz,Happy
+22,https://youtu.be/JDLX1tzJ1wg,Base,blues,Happy
+24,https://youtu.be/3xkBNSkBwVc,Base,original,Happy
+16,https://youtu.be/xbaxel2bVFA,Base,jazz,Twinkle
+20,https://youtu.be/sqgK8R7YWZg,Base,blues,Twinkle
+23,https://youtu.be/f900dH_6z7M,Base,original,Twinkle
+14,https://youtu.be/gxo3J66OWfs,Base,jazz,Pirates
+17,https://youtu.be/QIKAVwHxaZ4,Base,blues,Pirates
+21,https://youtu.be/N58-SKmSmTg,Base,original,Pirates
+11,https://youtu.be/wYcnnru2lwo,Reasoning,jazz,Happy
+15,https://youtu.be/QvoFfj4jG9o,Reasoning,blues,Happy
+18,https://youtu.be/3rmeKmO3j2k,Reasoning,original,Happy
+9,https://youtu.be/przbYI3tV-0,Feedback,jazz,Happy
+12,https://youtu.be/-ddfte9JO9A,Feedback,blues,Happy
+6,https://youtu.be/AUBu2tAU7uM,Reasoning,jazz,Twinkle
+10,https://youtu.be/4tG64RHpsPw,Reasoning,blues,Twinkle
+13,https://youtu.be/bIqAgOYh4nc,Reasoning,original,Twinkle
+4,https://youtu.be/rmT3e1z1xCE,Feedback,jazz,Twinkle
+7,https://youtu.be/cMzEGSa0sXk,Feedback,blues,Twinkle
+2,https://youtu.be/AApkGnS94O8,Reasoning,jazz,Pirates
+5,https://youtu.be/K2VB-3GrAvY,Reasoning,blues,Pirates
+8,https://youtu.be/H7_jr9-csh0,Reasoning,original,Pirates
+1,https://youtu.be/RvmZfXXq6Ps,Feedback,jazz,Pirates
+3,https://youtu.be/r8ozfw21sH0,Feedback,blues,Pirates
+30,https://youtu.be/nLrNib4Ea_w,Base,blues,FurElise
+27,https://youtu.be/FAwK_MNelfE,Base,original,FurElise
+26,https://youtu.be/BjCBfksrPK0,Reasoning,blues,FurElise
+29,https://youtu.be/QVy2iwLelJg,Reasoning,original,FurElise
+28,https://youtu.be/xnjxjnTBwYc,Feedback,blues,FurElise
+25,https://youtu.be/NAF2h5nnsUA,Feedback,original,FurElise
+31,https://youtu.be/JfJxTk6vkHg,Base,blues,FurElise (GPT)
+34,https://youtu.be/vb5Dog567l8,Base,original,FurElise (GPT)
+35,https://youtu.be/oM7VVo6utnU,Reasoning,blues,FurElise (GPT)
+32,https://youtu.be/sov34oSsYos,Reasoning,original,FurElise (GPT)
+33,https://youtu.be/Wu2tJmfHOKA,Feedback,blues,FurElise (GPT)
+36,https://youtu.be/JmL5TP7PNS4,Feedback,original,FurElise (GPT)
