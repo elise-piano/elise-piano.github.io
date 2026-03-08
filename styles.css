@@ -61,6 +61,21 @@ body {
     color: #000; /* Black text */
 }
 
+.demo-video-section {
+    margin-bottom: 30px;
+}
+
+.demo-video-section .video-container {
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+.demo-video-section video {
+    display: block;
+    border: 1px solid #eee;
+    border-radius: 4px;
+}
+
 .abstract-section {
     margin-bottom: 30px;
 }

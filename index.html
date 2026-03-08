@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Embodied Stylistic Planning via Structured Reasoning and Execution Feedback</title>
+    <title>ELISE: Embodied Language Intent-to-Skill Execution</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body id="top">
@@ -21,13 +21,24 @@
                 <li><a href="#bibtex-section">BibTeX</a></li>
             </ul>
         </nav>
-        <h1 class="title">Embodied Stylistic Planning via Structured Reasoning and Execution Feedback</h1>
+        <h1 class="title">ELISE: Embodied Language Intent-to-Skill Execution</h1>
         <p class="authors">Author Names Omitted for Anonymous Review</p>
         <p class="date">March 5, 2026</p>
 
+        <section class="demo-video-section">
+            <div class="video-container">
+                <video controls width="100%" preload="metadata">
+                    <source src="vid/demo.mp4" type="video/mp4">
+                    <source src="vid/demo.mov" type="video/quicktime">
+                </video>
+            </div>
+        </section>
+
         <section class="abstract-section" id="abstract">
             <h2 class="section-title">Abstract</h2>
-            <p class="abstract-text">Translating abstract human intent, especially stylistic nuances like 'play in jazz style,' into physically feasible robot actions is a key challenge in human-robot interaction. Current large language models often struggle with embodiment constraints, leading to unrealistic robot behavior. We introduce ELISE, a multi-stage framework for robotic piano performance that breaks down stylistic intent into sequential steps: musical analysis, embodiment-aware planning, code generation, and execution-grounded refinement. This structured approach, evaluated on a humanoid robot performing three songs in various styles, significantly enhances melodic accuracy and stylistic alignment compared to direct, single-prompt code generation.</p>
+            <p class="abstract-text">Enabling robots to translate high-level human intent into physically grounded action remains a central challenge in human-robot interaction. Although recent vision-language and large language models can generate structured plans from natural language, they lack embodiment awareness and often produce physically infeasible or perceptually misaligned behavior. This gap is particularly pronounced in expressive tasks, where users specify stylistic qualities (e.g., "play this in jazz style") that must be realized through temporally precise, constraint-bound motor control. Robotic piano performance exemplifies this challenge, requiring high-frequency dexterous execution under strict hardware limitations.
+We present ELISE, a structured multi-stage VLM framework for style-conditioned dexterous skill synthesis under embodiment constraints. Rather than collapsing intent interpretation, hardware adaptation, and control generation into a single prompt, ELISE decomposes reasoning into sequential stages spanning musical intent analysis, embodiment-constrained planning, robot-API-level code generation, and iterative refinement using execution-derived feedback. This staged design enables explicit alignment between abstract stylistic intent and physically feasible execution while maintaining transparency across reasoning layers.
+We evaluate ELISE on a humanoid robot equipped with constrained dexterous hands, performing three songs under original, jazz, and blues styles. In a blind ranking study across 24 real-robot performances, the proposed framework significantly improves both melodic faithfulness and perceptual style alignment compared to direct single-prompt code generation.</p>
         </section>
 
         <section class="details-section">
@@ -42,7 +53,7 @@
             ELISE was developed to be model-agnostic, with Gemini 3.0 Pro demonstrating more consistent adherence to hardware limitations compared to GPT-5.2.</p>
             <div class="figure-container">
                 <img src="img/architecture.png" alt="ELISE Architecture Overview">
-                <p class="figure-caption">Figure 1: Overview of ELISE. The core components of ELISE are a layered reasoning pipleine (layer 1-3) for decomposing task goal, style goal, and embodiment constraints; and and a feedback-driven adaptation module (layer 4) for further grounding a refinement.</p>
+                <p class="figure-caption">Figure 1: Overview of ELISE. The core components of ELISE are a layered reasoning pipeline (layer 1-3) for decomposing task goal, style goal, and embodiment constraints; and a feedback-driven adaptation module (layer 4) for further grounding a refinement.</p>
             </div>
         </section>
 
@@ -96,6 +107,10 @@
             </tbody>
         </table>
         </div>
+        <div class="figure-container">
+            <img src="img/bday_plots.png" alt="Happy Birthday note comparison plots">
+            <p class="figure-caption">Happy Birthday: Note comparison across styles.</p>
+        </div>
         <h3>Twinkle Performances</h3>
         <div class="video-table-container">
         <table>
@@ -126,6 +141,10 @@
             </tbody>
         </table>
         </div>
+        <div class="figure-container">
+            <img src="img/twinkle_plots.png" alt="Twinkle Twinkle note comparison plots">
+            <p class="figure-caption">Twinkle Twinkle Little Star: Note comparison across styles.</p>
+        </div>
         <h3>Pirates Performances</h3>
         <div class="video-table-container">
         <table>
@@ -155,6 +174,10 @@
                 </tr>
             </tbody>
         </table>
+        </div>
+        <div class="figure-container">
+            <img src="img/pirates_plots.png" alt="Pirates note comparison plots">
+            <p class="figure-caption">He's a Pirate: Note comparison across styles.</p>
         </div>
         <h3>Für Elise Performances</h3>
 <div class="video-table-container">
@@ -220,7 +243,7 @@
 
             <h2 class="section-title" id="bibtex-section">BibTeX</h2>
             <pre><code>@article{anonymous2026embodied,
-  title={Embodied Stylistic Planning via Structured Reasoning and Execution Feedback},
+  title={ELISE: Embodied Language Intent-to-Skill Execution},
   author={Anonymous Authors},
   journal={Anonymous Journal},
   year={2026},
